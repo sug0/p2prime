@@ -133,7 +133,7 @@ func NewClient(cfg ClientConfig) (client Client, err error) {
 // Download and add the blocklist.
 func getBlocklist() iplist.Ranger {
 	var err error
-	blocklistPath := os.TempDir() + "/go-peerflix-blocklist.gz"
+	blocklistPath := os.TempDir() + "/.p2prime-blocklist.gz"
 
 	if _, err = os.Stat(blocklistPath); os.IsNotExist(err) {
 		err = downloadBlockList(blocklistPath)
@@ -307,7 +307,7 @@ func (c Client) percentage() float64 {
 
 func downloadFile(URL string) (fileName string, err error) {
 	var file *os.File
-	if file, err = ioutil.TempFile(os.TempDir(), "go-peerflix"); err != nil {
+	if file, err = ioutil.TempFile(os.TempDir(), "p2prime"); err != nil {
 		return
 	}
 
