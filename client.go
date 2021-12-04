@@ -63,7 +63,7 @@ func NewClientConfig() ClientConfig {
 		TorrentPort:    50007,
 		Seed:           false,
 		TCP:            true,
-		MaxConnections: 200,
+		MaxConnections: 300,
 	}
 }
 
