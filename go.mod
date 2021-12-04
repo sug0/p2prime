@@ -1,4 +1,4 @@
-module github.com/Sioro-Neoku/go-peerflix
+module github.com/sug0/p2prime
 
 go 1.13
 
