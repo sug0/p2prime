@@ -5,6 +5,7 @@ go 1.17
 require (
 	github.com/anacrolix/torrent v1.38.0
 	github.com/dustin/go-humanize v1.0.0
+	github.com/gofrs/flock v0.8.1
 )
 
 require (

@@ -16,11 +16,14 @@ import (
 	"github.com/anacrolix/torrent"
 	"github.com/anacrolix/torrent/iplist"
 	"github.com/dustin/go-humanize"
+	"github.com/gofrs/flock"
 )
 
 const clearScreen = "\033[H\033[2J"
 
 const torrentBlockListURL = "http://john.bitsurge.net/public/biglist.p2p.gz"
+
+const p2primeLock = "p2prime-client.lock"
 
 var isHTTP = regexp.MustCompile(`^https?:\/\/`)
 
@@ -133,7 +136,13 @@ func NewClient(cfg ClientConfig) (client Client, err error) {
 // Download and add the blocklist.
 func getBlocklist() iplist.Ranger {
 	var err error
-	blocklistPath := os.TempDir() + "/.p2prime-blocklist.gz"
+	blocklistPath := os.TempDir() + "/p2prime-blocklist.gz"
+	blocklistLockPath := os.TempDir() + "/" + p2primeLock
+
+	blocklistLock := flock.New(blocklistLockPath)
+
+	blocklistLock.Lock()
+	defer blocklistLock.Close()
 
 	if _, err = os.Stat(blocklistPath); os.IsNotExist(err) {
 		err = downloadBlockList(blocklistPath)
